@@ -10,6 +10,5 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   const videosPath = path.join(__dirname, "../../../../videos.csv");
   const videosCSV = await fs.readFile(videosPath, "utf8");
   const records = parse(videosCSV, { columns: true });
-  console.log(records);
   res.status(200).json(records);
 }

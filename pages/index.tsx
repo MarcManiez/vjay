@@ -4,20 +4,18 @@ import styles from "../styles/Home.module.css";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { fetchPlaylist, VLCPlaylist } from "../vlc";
+import { fetchPlaylist, PlaylistItem } from "../vlc";
+import { Playlist } from "../components/Playlist";
+import { Library } from "../components/Library";
 
-interface Video {
-  name: string;
-  url: string;
-}
-
-const Home: NextPage<{ videos: Video[] }> = ({ videos }) => {
-  const [playlist, setPlaylist] = useState<VLCPlaylist>();
+const Home: NextPage<{ videos: PlaylistItem[] }> = ({ videos }) => {
+  const [playlist, setPlaylist] = useState<PlaylistItem[]>([]);
   useEffect(() => {
     const interval = setInterval(async () => {
       const VLCPlaylist = await fetchPlaylist();
+      console.log(VLCPlaylist);
       setPlaylist(VLCPlaylist);
-    });
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
   return (
@@ -28,7 +26,10 @@ const Home: NextPage<{ videos: Video[] }> = ({ videos }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>test</main>
+      <main className={styles.main}>
+        <Playlist playlistItems={playlist} />
+        <Library libraryItems={videos} />
+      </main>
     </div>
   );
 };
