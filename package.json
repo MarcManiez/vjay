@@ -5,11 +5,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "vlc": "vlc --extraintf http --http-host localhost --http-port 9090 --http-password asdf"
   },
   "dependencies": {
     "@types/csv-parse": "^1.2.2",
     "axios": "^0.24.0",
+    "fast-xml-parser": "^4.0.0-beta.8",
     "next": "12.0.7",
     "node-csv": "^0.1.2",
     "react": "17.0.2",
