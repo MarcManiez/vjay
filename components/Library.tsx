@@ -2,9 +2,11 @@ import { PlaylistItem } from "../vlc";
 
 interface LibraryProps {
   libraryItems: PlaylistItem[];
+  onEnqueue: (item: PlaylistItem) => void;
 }
 export const Library: React.FunctionComponent<LibraryProps> = ({
   libraryItems,
+  onEnqueue,
 }) => {
   return (
     <div>
@@ -14,6 +16,7 @@ export const Library: React.FunctionComponent<LibraryProps> = ({
           <div key={index}>
             <span>{name} </span>
             <span>{uri} </span>
+            <button onClick={() => onEnqueue({ name, uri })}>Enqueue</button>
           </div>
         ))}
       </div>

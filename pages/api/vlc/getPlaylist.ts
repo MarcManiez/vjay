@@ -6,7 +6,7 @@ import { PlaylistItem, VLCPlaylistItem } from "../../../vlc";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const response = await axios.get(
-    `http://localhost:9090/requests/playlist.xml`,
+    "http://localhost:9090/requests/playlist.xml",
     {
       auth: {
         username: "",
@@ -21,7 +21,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       ? jsonObj.node.node[0].leaf
       : [jsonObj.node.node[0].leaf]
     : undefined;
-  console.log(playlistItems);
   res.status(200).json({ playlistItems: formatPlaylistItems(playlistItems) });
 }
 

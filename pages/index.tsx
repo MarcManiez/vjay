@@ -7,13 +7,13 @@ import { useEffect, useState } from "react";
 import { fetchPlaylist, PlaylistItem } from "../vlc";
 import { Playlist } from "../components/Playlist";
 import { Library } from "../components/Library";
+import { enqueueItem } from "../vlc/enqueueItem";
 
 const Home: NextPage<{ videos: PlaylistItem[] }> = ({ videos }) => {
   const [playlist, setPlaylist] = useState<PlaylistItem[]>([]);
   useEffect(() => {
     const interval = setInterval(async () => {
       const VLCPlaylist = await fetchPlaylist();
-      console.log(VLCPlaylist);
       setPlaylist(VLCPlaylist);
     }, 1000);
     return () => clearInterval(interval);
@@ -28,7 +28,10 @@ const Home: NextPage<{ videos: PlaylistItem[] }> = ({ videos }) => {
 
       <main className={styles.main}>
         <Playlist playlistItems={playlist} />
-        <Library libraryItems={videos} />
+        <Library
+          libraryItems={videos}
+          onEnqueue={async (item) => await enqueueItem(item)}
+        />
       </main>
     </div>
   );
